@@ -1,17 +1,15 @@
-import { Button, Space } from 'antd';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
+import MyPage from './pages/MyPage';
 
 function App() {
   return (
-    <div>
-      <Space wrap>
-        <Button type='primary'>Primary Button</Button>
-        <Button>Default Button</Button>
-        <Button type='dashed'>Dashed Button</Button>
-        <Button type='text'>Text Button</Button>
-        <Button type='link'>Link Button</Button>
-        <Home />
-      </Space>
+    <div className='App'>
+      <h1>Welcome to React Router!</h1>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='about' element={<MyPage />} />
+      </Routes>
     </div>
   );
 }
