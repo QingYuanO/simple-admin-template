@@ -1,14 +1,16 @@
 import Footer from '@/components/Footer';
-import { LinkOutlined } from '@ant-design/icons';
+import { DownOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons';
 import { SettingDrawer, Settings as LayoutSettings } from '@ant-design/pro-components';
 import { history, Link, RunTimeLayoutConfig } from '@umijs/max';
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider, Space, theme } from 'antd';
+import moment from 'moment';
 import defaultSettings from '../config/defaultSettings';
+import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestErrorConfig';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
-
+// const WEEK = ['日', '一', '二', '三', '四', '五', '六', '日'];
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
@@ -70,28 +72,48 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     rightContentRender: false,
     itemRender: false,
     breadcrumbRender: false,
+    siderWidth: 280,
+    menuContentRender(props) {
+      console.log(props);
+      const { menuData } = props;
+      return (
+        <div className="flex h-full">
+          <div className="flex-1 bg-[rgb(20, 32, 48)]">
+            {menuData?.map((item) => (
+              <div key={item.path}>{item.name}</div>
+            ))}
+          </div>
+          <div className="bg-[#F0F0F0] flex-1">1</div>
+        </div>
+      );
+    },
     footerRender: () => <Footer />,
-    menuHeaderRender: () => <div>1</div>,
+    menuHeaderRender: () => <div className="flex-1 bg-[rgb(20, 32, 48)]">1</div>,
+    onMenuHeaderClick: () => {},
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
     contentStyle: { backgroundColor: '#fff' },
+    className: 'aml-theme',
     token: {
       bgLayout: '#fff',
       pageContainer: {
         colorBgPageContainer: '#fff',
       },
     },
-    childrenRender: (children) => {
+
+    childrenRender: (children, props) => {
+      console.log(props);
+
       // if (initialState?.loading) return <PageLoading />;
       return (
         <>
           <ConfigProvider
-            // componentSize="small"
+            // componentSize="middle"
             theme={{
               token: {
                 colorPrimary: '#3c8dbc',
-                borderRadius: 0,
+                borderRadius: 2,
                 paddingContentVertical: 0,
               },
               algorithm: [theme.compactAlgorithm],
@@ -101,23 +123,19 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
               },
             }}
           >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
-                height: 40,
-                color: '#333',
-                fontSize: 12,
-                width: '100%',
-                boxSizing: 'border-box',
-                padding: '0 40px 0 10px',
-                backgroundColor: '#fff',
-                borderBottom: '1px solid #e8e8e8',
-                borderTop: '1px solid #e8e8e8',
-              }}
-            >
-              1
+            <div className="flex items-center justify-end h-10 text-[#333] text-[12px] w-full box-border pr-10 pl-2 border-b border-gray-200 border-t ">
+              <div style={{ marginRight: 10 }}>
+                今天是{moment().format('YYYY年MM月DD日')}，星期一
+                {/* {moment().isoWeekday()} */}
+              </div>
+              <AvatarDropdown menu>
+                <Space style={{ cursor: 'pointer' }} align="center">
+                  <UserOutlined />
+                  <AvatarName />
+                  <DownOutlined />
+                </Space>
+              </AvatarDropdown>
+              {/* <SelectLang/> */}
             </div>
             {children}
           </ConfigProvider>
