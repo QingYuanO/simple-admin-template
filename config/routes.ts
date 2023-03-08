@@ -23,10 +23,28 @@ export default [
     ],
   },
   {
-    path: '/welcome',
-    name: 'welcome',
+    path: '/module1',
+    name: '模块一',
     icon: 'smile',
-    component: './Welcome',
+    routes: [
+      {
+        path: '/module1',
+        redirect: '/module1/welcome',
+      },
+      { path: '/module1/welcome', name: 'welcome', icon: 'smile', component: './Welcome' },
+    ],
+  },
+  {
+    path: '/module2',
+    name: '模块二',
+    icon: 'smile',
+    routes: [
+      {
+        path: '/module2',
+        redirect: '/module2/list',
+      },
+      { path: '/module2/list', name: 'list.table-list', icon: 'table', component: './TableList' },
+    ],
   },
   {
     path: '/admin',
@@ -46,14 +64,8 @@ export default [
     ],
   },
   {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
-  },
-  {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/module1/welcome',
   },
   {
     path: '*',

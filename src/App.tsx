@@ -1,4 +1,5 @@
 import Footer from '@/components/Footer';
+import AmlSiderMenu from '@/layout/SiderMenu/AmlSiderMenu';
 import { DownOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons';
 import { SettingDrawer, Settings as LayoutSettings } from '@ant-design/pro-components';
 import { history, Link, RunTimeLayoutConfig } from '@umijs/max';
@@ -66,6 +67,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
           </Link>,
         ]
       : [],
+    layout: 'side',
     actionsRender: false,
     pageTitleRender: false,
     collapsedButtonRender: false,
@@ -73,22 +75,14 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     itemRender: false,
     breadcrumbRender: false,
     siderWidth: 280,
+    menuHeaderRender: false,
+    colorPrimary: '#1890ff',
     menuContentRender(props) {
       console.log(props);
-      const { menuData } = props;
-      return (
-        <div className="flex h-full">
-          <div className="flex-1 bg-[rgb(20, 32, 48)]">
-            {menuData?.map((item) => (
-              <div key={item.path}>{item.name}</div>
-            ))}
-          </div>
-          <div className="bg-[#F0F0F0] flex-1">1</div>
-        </div>
-      );
+      return <AmlSiderMenu {...props} />;
     },
     footerRender: () => <Footer />,
-    menuHeaderRender: () => <div className="flex-1 bg-[rgb(20, 32, 48)]">1</div>,
+
     onMenuHeaderClick: () => {},
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
@@ -119,11 +113,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
               algorithm: [theme.compactAlgorithm],
               components: {
                 Table: {},
-                Button: {},
+                // Button: {},
               },
             }}
           >
-            <div className="flex items-center justify-end h-10 text-[#333] text-[12px] w-full box-border pr-10 pl-2 border-b border-gray-200 border-t ">
+            <div className="box-border flex h-10 w-full items-center justify-end border-b border-t border-solid border-gray-200 pr-10 pl-2 text-[12px] text-[#333] ">
               <div style={{ marginRight: 10 }}>
                 今天是{moment().format('YYYY年MM月DD日')}，星期一
                 {/* {moment().isoWeekday()} */}
@@ -139,6 +133,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             </div>
             {children}
           </ConfigProvider>
+
           <SettingDrawer
             disableUrlParams
             enableDarkTheme
