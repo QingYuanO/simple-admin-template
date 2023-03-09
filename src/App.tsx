@@ -1,7 +1,12 @@
 import Footer from '@/components/Footer';
 import AmlSiderMenu from '@/layout/SiderMenu/AmlSiderMenu';
 import { DownOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons';
-import { SettingDrawer, Settings as LayoutSettings } from '@ant-design/pro-components';
+import {
+  RouteContext,
+  RouteContextType,
+  SettingDrawer,
+  Settings as LayoutSettings,
+} from '@ant-design/pro-components';
 import { history, Link, RunTimeLayoutConfig } from '@umijs/max';
 import { ConfigProvider, Space, theme } from 'antd';
 import moment from 'moment';
@@ -130,6 +135,18 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
                 </Space>
               </AvatarDropdown>
               {/* <SelectLang/> */}
+            </div>
+            <div className="box-border flex h-10 w-full items-center border-b border-solid border-gray-200 pl-2 text-[12px] text-[#333] ">
+              <RouteContext.Consumer>
+                {(value: RouteContextType) => {
+                  console.log(value);
+                  const { breadcrumb } = value;
+                  console.log(breadcrumb);
+
+                  // 用户的标题
+                  return value.title;
+                }}
+              </RouteContext.Consumer>
             </div>
             {children}
           </ConfigProvider>

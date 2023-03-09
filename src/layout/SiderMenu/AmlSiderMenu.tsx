@@ -8,7 +8,7 @@ const activeHoverStyle =
 const itemCommonClass = 'h-[30px] cursor-pointer pl-4 leading-[30px]';
 
 export default function AmlSiderMenu(props: any) {
-  console.log(props);
+  // console.log(props);
   const { menuData, matchMenuKeys } = props as {
     menuData: MenuDataItem[];
     location: Location;
@@ -24,7 +24,7 @@ export default function AmlSiderMenu(props: any) {
     const initRoute = menuData.find((item) => item.path === matchMenuKeys[0]);
     setActiveRoutes(initRoute?.children ?? []);
     setActiveName(initRoute?.name ?? '');
-  }, []);
+  }, [matchMenuKeys]);
 
   function onChangeRoute(path: string) {
     const activeRoute = menuData.find((item) => item.path === path);
@@ -36,7 +36,7 @@ export default function AmlSiderMenu(props: any) {
   return (
     <div className="flex h-full">
       <div className="flex-1 bg-[#262F3E] text-[#F0F0F0]">
-        <div className="flex-center h-[100px] bg-[rgb(20_32_48)]">1</div>
+        <div className="flex-center h-[100px] bg-[rgb(20_32_48)]">LOGO</div>
         {menuData?.map((item) => (
           <div
             key={item.path}
@@ -62,7 +62,7 @@ export default function AmlSiderMenu(props: any) {
                   : ''
               }`}
               onClick={() => {
-                if (item.path) {
+                if (item.path && item.path !== location.pathname) {
                   history.push(item.path);
                 }
               }}
