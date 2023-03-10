@@ -126,6 +126,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
         onClick: onMenuClick,
         items: menuItems,
       }}
+      className={actionClassName}
     >
       {children}
     </HeaderDropdown>

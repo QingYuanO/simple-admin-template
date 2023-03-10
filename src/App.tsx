@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer';
-import AmlSiderMenu from '@/layout/SiderMenu/AmlSiderMenu';
+import AmlSiderMenu from '@/layouts/SiderMenu/AmlSiderMenu';
 import { DownOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons';
 import {
   RouteContext,
@@ -108,7 +108,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       return (
         <>
           <ConfigProvider
-            // componentSize="middle"
             theme={{
               token: {
                 colorPrimary: '#3c8dbc',

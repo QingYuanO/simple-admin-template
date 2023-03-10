@@ -43,7 +43,7 @@ export default [
         path: '/module2',
         redirect: '/module2/list',
       },
-      { path: '/module2/list', name: 'list.table-list', icon: 'table', component: './TableList' },
+      { path: '/module2/list', name: '列表', icon: 'table', component: './TableList' },
     ],
   },
   {
